@@ -1,9 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.LoadBalancer.Service", "Hermes.LoadBalancer.Service\Hermes.LoadBalancer.Service.csproj", "{063E8D58-2073-4EA2-92A3-B24C4BC7E4C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.EndpointLoadBalancer.Service", "Hermes.EndpointLoadBalancer.Service\Hermes.EndpointLoadBalancer.Service.csproj", "{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{063E8D58-2073-4EA2-92A3-B24C4BC7E4C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{063E8D58-2073-4EA2-92A3-B24C4BC7E4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{063E8D58-2073-4EA2-92A3-B24C4BC7E4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{063E8D58-2073-4EA2-92A3-B24C4BC7E4C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
