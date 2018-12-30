@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -17,6 +17,7 @@
     <PackageReference Include="NServiceBus" Version="7.1.6" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />
     <PackageReference Include="NServiceBus.NLog" Version="3.0.0" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" Version="4.4.0" />
     <PackageReference Include="NServiceBus.Transport.Msmq" Version="1.0.0" />
   </ItemGroup>
 

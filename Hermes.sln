@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.LoadBalancer.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.EndpointLoadBalancer.Service", "Hermes.EndpointLoadBalancer.Service\Hermes.EndpointLoadBalancer.Service.csproj", "{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Web", "Hermes.Web\Hermes.Web.csproj", "{122B35D6-BC1B-40D2-BE4C-83877849B081}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45A5846B-2EBE-4C4E-B72B-FF6822E63EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{122B35D6-BC1B-40D2-BE4C-83877849B081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{122B35D6-BC1B-40D2-BE4C-83877849B081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{122B35D6-BC1B-40D2-BE4C-83877849B081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{122B35D6-BC1B-40D2-BE4C-83877849B081}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

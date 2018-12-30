@@ -1,9 +1,11 @@
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Hermes.EndpointLoadBalancer.Service.Configuration;
 using NServiceBus;
 using NServiceBus.Logging;
+using NServiceBus.Persistence.Sql;
 
 namespace Hermes.EndpointLoadBalancer.Service
 {
@@ -23,7 +25,7 @@ namespace Hermes.EndpointLoadBalancer.Service
         {
             try
             {
-                QueueCreationUtils.CreateQueuesForEndpoint( EndpointName, "Everyone");
+                QueueCreationUtils.CreateQueuesForEndpoint(EndpointName, "Everyone");
 
                 QueueCreationUtils.CreateQueue(queueName: "error", account: Environment.UserName);
 
@@ -32,6 +34,8 @@ namespace Hermes.EndpointLoadBalancer.Service
                 // TODO: consider moving common endpoint configuration into a shared project
                 // for use by all endpoints in the system
                 var endpointConfiguration = new EndpointConfiguration(EndpointName);
+
+                endpointConfiguration.SendFailedMessagesTo("error");
 
                 // TODO: ensure the most appropriate serializer is chosen
                 // https://docs.particular.net/nservicebus/serialization/
@@ -45,10 +49,41 @@ namespace Hermes.EndpointLoadBalancer.Service
                     // TODO: choose a durable transport for production
                     // https://docs.particular.net/transports/
                     var transportExtensions = endpointConfiguration.UseTransport<LearningTransport>();
+                    transportExtensions.StorageDirectory("");
 
                     // TODO: choose a durable persistence for production
                     // https://docs.particular.net/persistence/
-                    endpointConfiguration.UsePersistence<LearningPersistence>();
+                    endpointConfiguration.UsePersistence<InMemoryPersistence>();
+
+                    // TODO: create a script for deployment to production
+                    endpointConfiguration.EnableInstallers();
+                }
+                else
+                {
+                    // TODO: choose a durable transport for production
+                    // https://docs.particular.net/transports/
+                    var transportExtensions = endpointConfiguration.UseTransport<MsmqTransport>();
+
+                    // TODO: choose a durable persistence for production
+                    // https://docs.particular.net/persistence/
+                    endpointConfiguration.UsePersistence<InMemoryPersistence>();
+
+                    //var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+                    //var subscriptions = persistence.SubscriptionSettings();
+                    //subscriptions.CacheFor(TimeSpan.FromMinutes(1));
+                    //persistence.SqlDialect<SqlDialect.MsSqlServer>();
+                    //persistence.ConnectionBuilder(
+                    //    connectionBuilder: () =>
+                    //    {
+                    //        SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
+                    //        {
+                    //            DataSource = "ENIAC",
+                    //            InitialCatalog = "nServiceBus",
+                    //            IntegratedSecurity = true,
+                    //            MultipleActiveResultSets = true
+                    //        };
+                    //        return new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+                    //    });
 
                     // TODO: create a script for deployment to production
                     endpointConfiguration.EnableInstallers();
