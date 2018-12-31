@@ -5,10 +5,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{063E8D58-2073-4EA2-92A3-B24C4BC7E4C1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>Hermes.LoadBalancer.Service</RootNamespace>
-    <AssemblyName>Hermes.LoadBalancer.Service</AssemblyName>
+    <ProjectGuid>{8D9E03FC-1911-4EDA-97B6-D50689277154}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Hermes.Console</RootNamespace>
+    <AssemblyName>Hermes.Console</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -107,6 +107,9 @@
     <Reference Include="NServiceBus.NLog, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.NLog.3.0.0\lib\net452\NServiceBus.NLog.dll</HintPath>
     </Reference>
+    <Reference Include="NServiceBus.Persistence.Sql, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.Persistence.Sql.4.4.0\lib\net452\NServiceBus.Persistence.Sql.dll</HintPath>
+    </Reference>
     <Reference Include="NServiceBus.Transport.Msmq, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.Transport.Msmq.1.0.0\lib\net452\NServiceBus.Transport.Msmq.dll</HintPath>
     </Reference>
@@ -119,12 +122,13 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlClient, Version=4.2.0.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.4.3\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
@@ -152,29 +156,17 @@
       <HintPath>..\packages\System.Security.Principal.Windows.4.5.1\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoadBalancerService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LoadBalancerService.Designer.cs">
-      <DependentUpon>LoadBalancerService.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="ProjectInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ProjectInstaller.Designer.cs">
-      <DependentUpon>ProjectInstaller.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,21 +180,28 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="LoadBalancerService.resx">
-      <DependentUpon>LoadBalancerService.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProjectInstaller.resx">
-      <DependentUpon>ProjectInstaller.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.1.6\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EnvelopeHandler\EnvelopeMessageHandler.csproj">
-      <Project>{151ba7a1-9b56-4c58-8963-9cae1f19613f}</Project>
-      <Name>EnvelopeMessageHandler</Name>
+    <ProjectReference Include="..\AdobeMessageInterface\DocumentGenerationMessageInterface.csproj">
+      <Project>{873497dd-bb87-4e80-83ce-0a3f7e2da5e9}</Project>
+      <Name>DocumentGenerationMessageInterface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DocumentGenerationMessage.Adobe\DocumentGenerationMessage.Adobe.csproj">
+      <Project>{d616681f-dff6-4518-9421-1623a1aae2c8}</Project>
+      <Name>DocumentGenerationMessage.Adobe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EnvelopeMessage.Base\EnvelopeMessage.Base.csproj">
+      <Project>{2fa18fdb-39cb-4371-a658-2f6335da4a51}</Project>
+      <Name>EnvelopeMessage.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EnvelopeMessage\EnvelopeMessageInterface.csproj">
+      <Project>{7dd6d5a5-d078-4d03-b575-680ff721bab6}</Project>
+      <Name>EnvelopeMessageInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -210,5 +209,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\NServiceBus.Transport.Msmq.1.0.0\build\NServiceBus.Transport.Msmq.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NServiceBus.Transport.Msmq.1.0.0\build\NServiceBus.Transport.Msmq.props'))" />
+    <Error Condition="!Exists('..\packages\NServiceBus.Persistence.Sql.4.4.0\build\NServiceBus.Persistence.Sql.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NServiceBus.Persistence.Sql.4.4.0\build\NServiceBus.Persistence.Sql.targets'))" />
   </Target>
+  <Import Project="..\packages\NServiceBus.Persistence.Sql.4.4.0\build\NServiceBus.Persistence.Sql.targets" Condition="Exists('..\packages\NServiceBus.Persistence.Sql.4.4.0\build\NServiceBus.Persistence.Sql.targets')" />
 </Project>
