@@ -8,11 +8,8 @@ namespace Hermes.EndpointLoadBalancer.Service
 {
     static class Program
     {
-        // TODO: consider using C# 7.1 or later, which will allow
-        // removal of this method, and renaming of MainAsync to Main
-        public static void Main(string[] args) => MainAsync(args).GetAwaiter().GetResult();
 
-        public async static Task MainAsync(string[] args)
+        public async static Task Main(string[] args)
         {
             NServiceBus.Logging.LogManager.Use<NLogFactory>();
 

@@ -1,53 +1,57 @@
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using NServiceBus;
 using NServiceBus.Logging;
+using NServiceBus.Persistence.Sql;
 
 namespace Hermes.EndpointWorker.Service
 {
     class Host
     {
-        // TODO: optionally choose a custom logging library
-        // https://docs.particular.net/nservicebus/logging/#custom-logging
-        // LogManager.Use<TheLoggingFactory>();
         static readonly ILog log = LogManager.GetLogger<Host>();
 
         IEndpointInstance endpoint;
 
-        // TODO: give the endpoint an appropriate name
         public string EndpointName => "Hermes.EndpointWorker.Service";
 
         public async Task Start()
         {
             try
             {
-                // TODO: consider moving common endpoint configuration into a shared project
-                // for use by all endpoints in the system
                 var endpointConfiguration = new EndpointConfiguration(EndpointName);
-
-                // TODO: ensure the most appropriate serializer is chosen
-                // https://docs.particular.net/nservicebus/serialization/
+                endpointConfiguration.SendFailedMessagesTo("error");
+                endpointConfiguration.AuditProcessedMessagesTo("audit");
                 endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-
                 endpointConfiguration.DefineCriticalErrorAction(OnCriticalError);
-
-                // TODO: remove this condition after choosing a transport, persistence and deployment method suitable for production
                 if (Environment.UserInteractive && Debugger.IsAttached)
                 {
-                    // TODO: choose a durable transport for production
-                    // https://docs.particular.net/transports/
                     var transportExtensions = endpointConfiguration.UseTransport<LearningTransport>();
-
-                    // TODO: choose a durable persistence for production
-                    // https://docs.particular.net/persistence/
-                    endpointConfiguration.UsePersistence<LearningPersistence>();
-
-                    // TODO: create a script for deployment to production
-                    endpointConfiguration.EnableInstallers();
+                    transportExtensions.StorageDirectory(@"c:\temp");
+                    endpointConfiguration.UsePersistence<InMemoryPersistence>();
                 }
-
-                // TODO: perform any futher start up operations before or after starting the endpoint
+                else
+                {
+                    var transportExtensions = endpointConfiguration.UseTransport<MsmqTransport>();
+                    var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+                    var subscriptions = persistence.SubscriptionSettings();
+                    subscriptions.CacheFor(TimeSpan.FromMinutes(1));
+                    persistence.SqlDialect<SqlDialect.MsSqlServer>();
+                    persistence.ConnectionBuilder(
+                        connectionBuilder: () =>
+                        {
+                            SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
+                            {
+                                DataSource = "ENIAC",
+                                InitialCatalog = "nServiceBus",
+                                IntegratedSecurity = true,
+                                MultipleActiveResultSets = true
+                            };
+                            return new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+                        });
+                }
+                endpointConfiguration.EnableInstallers();
                 endpoint = await Endpoint.Start(endpointConfiguration);
             }
             catch (Exception ex)
