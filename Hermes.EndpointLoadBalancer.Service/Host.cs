@@ -48,7 +48,7 @@ namespace Hermes.EndpointLoadBalancer.Service
                         {
                             SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
                             {
-                                DataSource = "ENIAC",
+                                DataSource = "PCDANMSAVIDGE10",
                                 InitialCatalog = "nServiceBus",
                                 IntegratedSecurity = true,
                                 MultipleActiveResultSets = true

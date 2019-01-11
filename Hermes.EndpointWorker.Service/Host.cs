@@ -43,7 +43,7 @@ namespace Hermes.EndpointWorker.Service
                         {
                             SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
                             {
-                                DataSource = "ENIAC",
+                                DataSource = "PCDANMSAVIDGE10",
                                 InitialCatalog = "nServiceBus",
                                 IntegratedSecurity = true,
                                 MultipleActiveResultSets = true
