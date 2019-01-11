@@ -3,10 +3,13 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Hermes.EndpointLoadBalancer.Service.Configuration;
+using Microsoft.Owin.Hosting;
 using NServiceBus;
 using NServiceBus.Logging;
 using NServiceBus.Persistence.Sql;
+using Owin;
 
 namespace Hermes.EndpointLoadBalancer.Service
 {
@@ -14,12 +17,18 @@ namespace Hermes.EndpointLoadBalancer.Service
     {
         static readonly ILog log = LogManager.GetLogger<Host>();
 
+        public string baseAddress = "http://localhost:9000/";
+        private IDisposable _server = null;
+
         IEndpointInstance endpoint;
 
         public string EndpointName => "Hermes.EndpointLoadBalancer.Service";
 
         public async Task Start()
         {
+
+            _server = WebApp.Start<OwinStartup>(url: baseAddress);
+
             try
             {
                 QueueCreationUtils.CreateQueuesForEndpoint(EndpointName, "Everyone");
@@ -67,6 +76,12 @@ namespace Hermes.EndpointLoadBalancer.Service
 
         public async Task Stop()
         {
+
+            if (_server != null)
+            {
+                _server.Dispose();
+            }
+
             try
             {
                 // TODO: perform any futher shutdown operations before or after stopping the endpoint
