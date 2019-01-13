@@ -10,6 +10,7 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
     [RoutePrefix("api/Config")]
     public class ConfigController : ApiController
     {
+        [Route("~/",Name="default")]
         [Route("GetTime")]
         public string GetTime()
         {
