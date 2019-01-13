@@ -84,7 +84,7 @@ namespace Hermes.EndpointLoadBalancer.Service
 
             try
             {
-                // TODO: perform any futher shutdown operations before or after stopping the endpoint
+                // TODO: perform any further shutdown operations before or after stopping the endpoint
                 await endpoint?.Stop();
             }
             catch (Exception ex)
