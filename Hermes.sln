@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28407.52
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.LoadBalancer.Service", "Hermes.LoadBalancer.Service\Hermes.LoadBalancer.Service.csproj", "{063E8D58-2073-4EA2-92A3-B24C4BC7E4C1}"
 EndProject
@@ -45,7 +45,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{B9EB164A-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnvelopeMessage.Base", "EnvelopeMessage.Base\EnvelopeMessage.Base.csproj", "{2FA18FDB-39CB-4371-A658-2F6335DA4A51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.EndpointWorker.Service", "Hermes.EndpointWorker.Service\Hermes.EndpointWorker.Service.csproj", "{F122A588-9D6A-46FA-99A4-9580023ED799}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.EndpointWorker.Service", "Hermes.EndpointWorker.Service\Hermes.EndpointWorker.Service.csproj", "{F122A588-9D6A-46FA-99A4-9580023ED799}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{6A2069F9-1F8C-4555-9F5E-91B048F6F85C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{55E924B2-180B-49AA-A871-2FD2979987AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Datatypes", "Datatypes", "{BE96E0D2-E426-4290-8800-41033B3E0C1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Common.Datatypes", "Hermes.Common.Datatypes\Hermes.Common.Datatypes.csproj", "{4C639154-E52B-43B8-98C7-87FB3CE747E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Common.Interfaces", "Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj", "{12C25C3F-0895-4D19-8CEE-844BF6ACC221}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +107,14 @@ Global
 		{F122A588-9D6A-46FA-99A4-9580023ED799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F122A588-9D6A-46FA-99A4-9580023ED799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F122A588-9D6A-46FA-99A4-9580023ED799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C639154-E52B-43B8-98C7-87FB3CE747E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C639154-E52B-43B8-98C7-87FB3CE747E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C639154-E52B-43B8-98C7-87FB3CE747E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C639154-E52B-43B8-98C7-87FB3CE747E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C25C3F-0895-4D19-8CEE-844BF6ACC221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C25C3F-0895-4D19-8CEE-844BF6ACC221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C25C3F-0895-4D19-8CEE-844BF6ACC221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C25C3F-0895-4D19-8CEE-844BF6ACC221}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +135,10 @@ Global
 		{7167BF4A-027F-4059-9148-D803D37C8623} = {7E8426F9-325B-41AC-A940-B0094CE835AF}
 		{B9EB164A-6D5C-4A59-B025-4DC6920F36E2} = {7167BF4A-027F-4059-9148-D803D37C8623}
 		{2FA18FDB-39CB-4371-A658-2F6335DA4A51} = {B9EB164A-6D5C-4A59-B025-4DC6920F36E2}
+		{55E924B2-180B-49AA-A871-2FD2979987AF} = {6A2069F9-1F8C-4555-9F5E-91B048F6F85C}
+		{BE96E0D2-E426-4290-8800-41033B3E0C1B} = {6A2069F9-1F8C-4555-9F5E-91B048F6F85C}
+		{4C639154-E52B-43B8-98C7-87FB3CE747E2} = {BE96E0D2-E426-4290-8800-41033B3E0C1B}
+		{12C25C3F-0895-4D19-8CEE-844BF6ACC221} = {55E924B2-180B-49AA-A871-2FD2979987AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD8639CC-82FC-479A-915A-BDE93A675C4D}

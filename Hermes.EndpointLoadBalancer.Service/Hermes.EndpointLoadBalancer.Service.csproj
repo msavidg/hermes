@@ -30,10 +30,12 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EnvelopeHandler\EnvelopeMessageHandler.csproj" />
+    <ProjectReference Include="..\Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
