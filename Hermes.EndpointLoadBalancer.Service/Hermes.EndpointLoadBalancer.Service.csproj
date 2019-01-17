@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
 
@@ -30,11 +37,11 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EnvelopeHandler\EnvelopeMessageHandler.csproj" />
+    <ProjectReference Include="..\Hermes.Common.Datatypes\Hermes.Common.Datatypes.csproj" />
     <ProjectReference Include="..\Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj" />
   </ItemGroup>
 

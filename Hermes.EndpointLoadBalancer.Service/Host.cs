@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Net;
+using System.Runtime.Caching;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Hermes.Common.Interfaces;
 using Hermes.EndpointLoadBalancer.Service.Configuration;
 using Microsoft.Owin.Hosting;
 using NServiceBus;
@@ -15,9 +18,13 @@ namespace Hermes.EndpointLoadBalancer.Service
 {
     class Host
     {
+        private static readonly ObjectCache Cache = MemoryCache.Default;
+        private const string CacheKey = "endpointRegistrations";
+
         static readonly ILog log = LogManager.GetLogger<Host>();
 
-        public string baseAddress = "http://localhost:9000/";
+        //https://stackoverflow.com/questions/21634333/hosting-webapi-using-owin-in-a-windows-service
+        public string baseAddress = "http://+:9000/";
         private IDisposable _server = null;
 
         IEndpointInstance endpoint;
@@ -28,6 +35,9 @@ namespace Hermes.EndpointLoadBalancer.Service
         {
 
             _server = WebApp.Start<OwinStartup>(url: baseAddress);
+
+            CacheItemPolicy policy = new CacheItemPolicy();
+            Cache.Set(CacheKey, new List<IEndpointRegistration>(), policy);
 
             try
             {
