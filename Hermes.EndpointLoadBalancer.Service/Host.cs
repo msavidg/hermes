@@ -24,6 +24,9 @@ namespace Hermes.EndpointLoadBalancer.Service
         static readonly ILog log = LogManager.GetLogger<Host>();
 
         //https://stackoverflow.com/questions/21634333/hosting-webapi-using-owin-in-a-windows-service
+        //netsh http add  urlacl url=http://+:9000/ user="NT AUTHORITY\NETWORK SERVICE"
+        //netsh http show urlacl url=http://+:9000/
+
         public string baseAddress = "http://+:9000/";
         private IDisposable _server = null;
 
