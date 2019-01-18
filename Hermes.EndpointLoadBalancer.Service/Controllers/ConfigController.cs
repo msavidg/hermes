@@ -107,7 +107,7 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
             stringBuilder.AppendLine("<html>");
 
             stringBuilder.AppendLine("<head>");
-            stringBuilder.AppendLine("  <title>Bootstrap Example</title>");
+            stringBuilder.AppendLine("  <title>Hermes Endpoint Load Balancer</title>");
             stringBuilder.AppendLine("  <meta charset=\"utf-8\">");
             stringBuilder.AppendLine("  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
             stringBuilder.AppendLine("  <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css\">");

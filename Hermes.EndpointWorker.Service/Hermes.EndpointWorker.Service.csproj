@@ -25,4 +25,10 @@
     <PackageReference Include="NServiceBus.Transport.Msmq" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DocumentGenerationMessage.Adobe\DocumentGenerationMessage.Adobe.csproj" />
+    <ProjectReference Include="..\Hermes.Common.Datatypes\Hermes.Common.Datatypes.csproj" />
+    <ProjectReference Include="..\Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

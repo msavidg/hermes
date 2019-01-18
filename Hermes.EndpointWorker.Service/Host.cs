@@ -1,7 +1,11 @@
 using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Hermes.Common.Datatypes;
+using Newtonsoft.Json;
 using NServiceBus;
 using NServiceBus.Logging;
 using NServiceBus.Persistence.Sql;
@@ -51,8 +55,13 @@ namespace Hermes.EndpointWorker.Service
                             return new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
                         });
                 }
+
                 endpointConfiguration.EnableInstallers();
+
                 endpoint = await Endpoint.Start(endpointConfiguration);
+
+                RegisterEndpoint();
+
             }
             catch (Exception ex)
             {
@@ -102,6 +111,34 @@ namespace Hermes.EndpointWorker.Service
             {
                 Environment.FailFast(message, exception);
             }
+        }
+
+        private void RegisterEndpoint()
+        {
+            log.Debug("Begin RegisterEndpoint");
+
+            var handleMessageInterface = typeof(IHandleMessages<>);
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList().SelectMany(x => x.GetTypes()).Where(t => handleMessageInterface.IsAssignableFrom(t) && !t.IsInterface).ToList();
+
+            assemblies?.ForEach(a =>
+            {
+                log.Debug(a.FullName);
+            });
+
+            EndpointRegistration endpointRegistration = new EndpointRegistration()
+            {
+                EndpointName = this.EndpointName,
+                Environment = "*",
+                Message = String.Join(",", assemblies),
+                Version = "1.0.0.0"
+            };
+
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.UploadString("http://localhost:9000/api/Config/RegisterEndpoint", "POST", JsonConvert.SerializeObject(endpointRegistration));
+            }
+
+            log.Debug("End RegisterEndpoint");
         }
     }
 }
