@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DocumentGenerationMessage.Adobe\DocumentGenerationMessage.Adobe.csproj" />
+    <ProjectReference Include="..\DocumentGenerationHandler\DocumentGenerationMessageHandler.csproj" />
     <ProjectReference Include="..\Hermes.Common.Datatypes\Hermes.Common.Datatypes.csproj" />
     <ProjectReference Include="..\Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj" />
   </ItemGroup>

@@ -102,6 +102,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
         {
 
             StringBuilder stringBuilder = new StringBuilder();
+            
+            #region HTML
 
             stringBuilder.AppendLine("<!doctype html >");
             stringBuilder.AppendLine("<html>");
@@ -128,6 +130,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
             }
             stringBuilder.AppendLine("</table>");
             stringBuilder.AppendLine("</html>");
+            
+            #endregion
 
             HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
             httpResponseMessage.Content = new StringContent(stringBuilder.ToString(), Encoding.UTF8, MediaTypeNames.Text.Html);

@@ -16,7 +16,7 @@ namespace Hermes.EndpointWorker.Service
     {
         static readonly ILog log = LogManager.GetLogger<Host>();
 
-        IEndpointInstance endpoint;
+        IEndpointInstance _endpoint;
 
         public string EndpointName => "Hermes.EndpointWorker.Service";
 
@@ -58,7 +58,7 @@ namespace Hermes.EndpointWorker.Service
 
                 endpointConfiguration.EnableInstallers();
 
-                endpoint = await Endpoint.Start(endpointConfiguration);
+                _endpoint = await Endpoint.Start(endpointConfiguration);
 
                 RegisterEndpoint();
 
@@ -74,7 +74,7 @@ namespace Hermes.EndpointWorker.Service
             try
             {
                 // TODO: perform any futher shutdown operations before or after stopping the endpoint
-                await endpoint?.Stop();
+                await _endpoint?.Stop();
             }
             catch (Exception ex)
             {
@@ -117,8 +117,7 @@ namespace Hermes.EndpointWorker.Service
         {
             log.Debug("Begin RegisterEndpoint");
 
-            var handleMessageInterface = typeof(IHandleMessages<>);
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList().SelectMany(x => x.GetTypes()).Where(t => handleMessageInterface.IsAssignableFrom(t) && !t.IsInterface).ToList();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).ToList();
 
             assemblies?.ForEach(a =>
             {
@@ -127,18 +126,38 @@ namespace Hermes.EndpointWorker.Service
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
-                EndpointName = this.EndpointName,
+                EndpointName = EndpointName,
                 Environment = "*",
-                Message = String.Join(",", assemblies),
+                Message = String.Join(", ", assemblies),
                 Version = "1.0.0.0"
             };
 
-            using (WebClient webClient = new WebClient())
+            try
             {
-                webClient.UploadString("http://localhost:9000/api/Config/RegisterEndpoint", "POST", JsonConvert.SerializeObject(endpointRegistration));
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers.Add("Content-Type", "application/json");
+                    webClient.UploadString("http://localhost:9000/api/Config/RegisterEndpoint", "POST", JsonConvert.SerializeObject(endpointRegistration));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message);
             }
 
             log.Debug("End RegisterEndpoint");
         }
+
+        private static bool IsMessageHandler(Type type)
+        {
+            if (type.IsAbstract || type.IsGenericTypeDefinition)
+            {
+                return false;
+            }
+
+            return type.GetInterfaces().Where(@interface => @interface.IsGenericType).Select(@interface => @interface.GetGenericTypeDefinition()).Any(genericTypeDef => genericTypeDef == IHandleMessagesType);
+        }
+
+        static readonly Type IHandleMessagesType = typeof(IHandleMessages<>);
     }
 }
