@@ -62,6 +62,11 @@ namespace Hermes.EndpointWorker.Service
 
                 RegisterEndpoint();
 
+                // Set up a timer to trigger every minute.  
+                System.Timers.Timer timer = new System.Timers.Timer { Interval = 5000 };
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+                timer.Start();
+
             }
             catch (Exception ex)
             {
@@ -74,6 +79,8 @@ namespace Hermes.EndpointWorker.Service
             try
             {
                 // TODO: perform any futher shutdown operations before or after stopping the endpoint
+                UnRegisterEndpoint();
+
                 await _endpoint?.Stop();
             }
             catch (Exception ex)
@@ -129,7 +136,8 @@ namespace Hermes.EndpointWorker.Service
                 EndpointName = EndpointName,
                 Environment = "*",
                 Message = String.Join(", ", assemblies),
-                Version = "1.0.0.0"
+                Version = "1.0.0.0",
+                UtcTimestamp = DateTime.UtcNow
             };
 
             try
@@ -148,6 +156,77 @@ namespace Hermes.EndpointWorker.Service
             log.Debug("End RegisterEndpoint");
         }
 
+        private void UpdateEndpointRegistration()
+        {
+            log.Debug("Begin UpdateEndpointRegistration");
+
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).ToList();
+
+            assemblies?.ForEach(a =>
+            {
+                log.Debug(a.FullName);
+            });
+
+            EndpointRegistration endpointRegistration = new EndpointRegistration()
+            {
+                EndpointName = EndpointName,
+                Environment = "*",
+                Message = String.Join(", ", assemblies),
+                Version = "1.0.0.0",
+                UtcTimestamp = DateTime.UtcNow
+            };
+
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers.Add("Content-Type", "application/json");
+                    webClient.UploadString("http://localhost:9000/api/Config/UpdateEndpointRegistration", "PUT", JsonConvert.SerializeObject(endpointRegistration));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message);
+            }
+
+            log.Debug("End UpdateEndpointRegistration");
+        }
+
+        private void UnRegisterEndpoint()
+        {
+            log.Debug("Begin UnRegisterEndpoint");
+
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).ToList();
+
+            assemblies?.ForEach(a =>
+            {
+                log.Debug(a.FullName);
+            });
+
+            EndpointRegistration endpointRegistration = new EndpointRegistration()
+            {
+                EndpointName = EndpointName,
+                Environment = "*",
+                Message = String.Join(", ", assemblies),
+                Version = "1.0.0.0"
+            };
+
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers.Add("Content-Type", "application/json");
+                    webClient.UploadString("http://localhost:9000/api/Config/UnRegisterEndpoint", "DELETE", JsonConvert.SerializeObject(endpointRegistration));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message);
+            }
+
+            log.Debug("End UnRegisterEndpoint");
+        }
+
         private static bool IsMessageHandler(Type type)
         {
             if (type.IsAbstract || type.IsGenericTypeDefinition)
@@ -159,5 +238,16 @@ namespace Hermes.EndpointWorker.Service
         }
 
         static readonly Type IHandleMessagesType = typeof(IHandleMessages<>);
+
+        private void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
+        {
+
+            log.Debug("Begin OnTimer");
+
+            UpdateEndpointRegistration();
+
+            log.Debug("End OnTimer");
+
+        }
     }
 }

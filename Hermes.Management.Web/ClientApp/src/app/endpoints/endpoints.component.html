@@ -1,0 +1,26 @@
+<div class="row col-md-12">
+<h1>Endpoints</h1>
+
+<p *ngIf="!endpoints"><em>Loading...</em></p>
+
+<table class='table table-striped' *ngIf="endpoints">
+  <thead>
+    <tr>
+      <th>EndpointName</th>
+      <th>Message</th>
+      <th>Environment</th>
+      <th>Version</th>
+      <th>UTC Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let endpoint of endpoints">
+      <td>{{endpoint.endpointName}}</td>
+      <td>{{endpoint.message}}</td>
+      <td>{{endpoint.environment}}</td>
+      <td>{{endpoint.version}}</td>
+      <td>{{endpoint.utcTimestamp}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>

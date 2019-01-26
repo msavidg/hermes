@@ -80,6 +80,12 @@ namespace Hermes.EndpointLoadBalancer.Service
                 }
                 endpointConfiguration.EnableInstallers();
                 endpoint = await Endpoint.Start(endpointConfiguration);
+
+                // Set up a timer to trigger every minute.  
+                System.Timers.Timer timer = new System.Timers.Timer { Interval = 5000 };
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+                timer.Start();
+
             }
             catch (Exception ex)
             {
@@ -135,6 +141,14 @@ namespace Hermes.EndpointLoadBalancer.Service
             {
                 Environment.FailFast(message, exception);
             }
+        }
+        private void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
+        {
+
+            log.Debug("Begin OnTimer");
+
+            log.Debug("End OnTimer");
+
         }
     }
 }

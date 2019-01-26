@@ -13,6 +13,18 @@ namespace Hermes.Common.Datatypes
         public string Message { get; set; }
         public string Environment { get; set; }
         public string Version { get; set; }
+        public DateTime UtcTimestamp { get; set; }
+
+
+        public EndpointRegistration()
+        {
+            UtcTimestamp = DateTime.UtcNow;
+        }
+
+        public override string ToString()
+        {
+            return String.Format($"EndpointName: {this.EndpointName}, Message: {this.Message}, Environment: {this.Environment}, Version: {this.Version}");
+        }
 
         public bool Equals(EndpointRegistration other)
         {

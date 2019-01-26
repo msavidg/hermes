@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Hermes.Common.Datatypes;
 using Hermes.Common.Interfaces;
+using Newtonsoft.Json;
+using NServiceBus.Logging;
 
 namespace Hermes.EndpointLoadBalancer.Service.Controllers
 {
@@ -19,6 +21,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
 
         private static readonly ObjectCache Cache = MemoryCache.Default;
         private const string CacheKey = "endpointRegistrations";
+
+        static readonly ILog log = LogManager.GetLogger<Host>();
 
         public ConfigController()
         {
@@ -37,11 +41,23 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
         public HttpResponseMessage RegisterEndpoint(EndpointRegistration endpointRegistration)
         {
 
+            log.Debug("Begin RegisterEndpoint");
+
             HttpResponseMessage httpResponseMessage;
 
             if (Cache[CacheKey] is List<IEndpointRegistration> endpointRegistrations)
             {
-                endpointRegistrations.Add(endpointRegistration);
+                if (!endpointRegistrations.Contains(endpointRegistration))
+                {
+                    log.Debug($"Registering endpoint: {endpointRegistration.ToString()}");
+                    endpointRegistrations.Add(endpointRegistration);
+                }
+                else
+                {
+                    log.Debug("Endpoint is already registered.  Calling UpdateEndpointRegistration.");
+                    UpdateEndpointRegistration(endpointRegistration);
+                }
+
                 httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
             }
             else
@@ -49,6 +65,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
                 httpResponseMessage = Request.CreateResponse(HttpStatusCode.InternalServerError);
                 httpResponseMessage.Content = new StringContent("Unable to load endpointRegistration list from memory.", Encoding.UTF8, MediaTypeNames.Text.Plain);
             }
+
+            log.Debug("End RegisterEndpoint");
 
             return httpResponseMessage;
         }
@@ -58,6 +76,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
         public HttpResponseMessage UpdateEndpointRegistration(EndpointRegistration endpointRegistration)
         {
 
+            log.Debug("Begin UpdateEndpointRegistration");
+
             HttpResponseMessage httpResponseMessage;
 
             if (Cache[CacheKey] is List<IEndpointRegistration> endpointRegistrations)
@@ -72,6 +92,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
                 httpResponseMessage.Content = new StringContent("Unable to load endpointRegistration list from memory.", Encoding.UTF8, MediaTypeNames.Text.Plain);
             }
 
+            log.Debug("End UpdateEndpointRegistration");
+
             return httpResponseMessage;
         }
 
@@ -79,6 +101,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
         [HttpDelete]
         public HttpResponseMessage UnRegisterEndpoint(EndpointRegistration endpointRegistration)
         {
+
+            log.Debug("Begin UnRegisterEndpoint");
 
             HttpResponseMessage httpResponseMessage;
 
@@ -93,6 +117,8 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
                 httpResponseMessage.Content = new StringContent("Unable to load endpointRegistration list from memory.", Encoding.UTF8, MediaTypeNames.Text.Plain);
             }
 
+            log.Debug("End UnRegisterEndpoint");
+
             return httpResponseMessage;
         }
 
@@ -101,40 +127,19 @@ namespace Hermes.EndpointLoadBalancer.Service.Controllers
         public HttpResponseMessage ShowRegisteredEndpoints()
         {
 
-            StringBuilder stringBuilder = new StringBuilder();
-            
-            #region HTML
+            log.Debug("Begin ShowRegisteredEndpoints");
 
-            stringBuilder.AppendLine("<!doctype html >");
-            stringBuilder.AppendLine("<html>");
-
-            stringBuilder.AppendLine("<head>");
-            stringBuilder.AppendLine("  <title>Hermes Endpoint Load Balancer</title>");
-            stringBuilder.AppendLine("  <meta charset=\"utf-8\">");
-            stringBuilder.AppendLine("  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-            stringBuilder.AppendLine("  <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css\">");
-            stringBuilder.AppendLine("  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>");
-            stringBuilder.AppendLine("  <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js\"></script>");
-            stringBuilder.AppendLine("</head>");
-
-            stringBuilder.AppendLine("<table class=\"table table-dark\">");
-
-            stringBuilder.Append($"<thead><tr><th scope=\"col\">EndpointName</th><th scope=\"col\">Message</th><th scope=\"col\">Environment</th><th scope=\"col\">Version</th></tr></thead>");
+            string registeredEndpoints = null;
 
             if (Cache[CacheKey] is List<IEndpointRegistration> endpointRegistrations)
             {
-                endpointRegistrations.ForEach((reg) =>
-                {
-                    stringBuilder.Append($"<tr><th scope=\"row\">{reg.EndpointName}</th><td>{reg.Message}</td><td>{reg.Environment}</td><td>{reg.Version}</td></tr>");
-                });
+                registeredEndpoints = JsonConvert.SerializeObject(Cache[CacheKey]);
             }
-            stringBuilder.AppendLine("</table>");
-            stringBuilder.AppendLine("</html>");
-            
-            #endregion
 
             HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
-            httpResponseMessage.Content = new StringContent(stringBuilder.ToString(), Encoding.UTF8, MediaTypeNames.Text.Html);
+            httpResponseMessage.Content = new StringContent(registeredEndpoints, Encoding.UTF8, "application/json");
+
+            log.Debug("End ShowRegisteredEndpoints");
 
             return httpResponseMessage;
         }
