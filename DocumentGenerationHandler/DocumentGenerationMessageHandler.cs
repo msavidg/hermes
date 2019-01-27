@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdobeMessageInterface;
+﻿using System.Threading.Tasks;
+using Hermes.Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 

@@ -7,8 +7,8 @@
     <ProjectGuid>{873497DD-BB87-4E80-83CE-0A3F7E2DA5E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdobeMessageInterface</RootNamespace>
-    <AssemblyName>AdobeMessageInterface</AssemblyName>
+    <RootNamespace>DocumentGenerationMessage</RootNamespace>
+    <AssemblyName>DocumentGenerationMessage</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -1,7 +1,6 @@
 ﻿using EnvelopeMessage;
-using NServiceBus;
 
-namespace AdobeMessageInterface
+namespace DocumentGenerationMessage
 {
     public interface IDocumentGenerationMessage : IEnvelopeMessage
     {

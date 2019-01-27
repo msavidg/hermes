@@ -1,0 +1,94 @@
+﻿2019-01-26 13:34:10.816 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 13:37:08.519 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 13:44:22.648 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 13:52:55.876 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 13:57:21.611 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 13:57:21.818 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:00:52.087 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:00:52.294 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:02:50.853 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:02:51.053 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:06:45.647 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:06:45.850 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:10:24.470 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:10:24.672 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:15:33.142 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:15:33.344 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:17:04.796 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:17:04.996 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:27:45.758 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:27:45.974 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:36:10.321 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:36:10.545 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:42:14.869 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:42:15.084 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:43:44.365 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:43:44.577 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:47:44.222 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:47:44.425 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:48:10.871 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:48:14.094 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:48:14.778 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:49:15.923 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:49:16.129 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:49:49.102 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:52:50.517 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:52:50.728 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 14:55:54.942 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 14:55:55.143 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 15:11:17.775 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 15:11:17.976 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 15:11:55.488 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 15:15:16.024 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 15:15:16.232 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 15:21:09.045 INFO  DefaultFactory Logging to 'D:\dev\git_repos\hermes\Hermes.Test.Web\App_Data\' with level Info
+2019-01-26 15:21:09.319 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+
+2019-01-26 15:22:05.252 INFO  NServiceBus.LicenseManager Selected active license from C:\ProgramData\ParticularSoftware\license.xml
+License Expiration: 2019-10-23
+

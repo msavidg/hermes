@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Caching;
-using System.Text;
+﻿using System.Runtime.Caching;
 using System.Threading.Tasks;
-using EnvelopeMessage;
+using Hermes.Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 
@@ -17,6 +13,11 @@ namespace EnvelopeHandler
         private const string CacheKey = "endpointRegistrations";
 
         static ILog log = LogManager.GetLogger<IEnvelopeMessage>();
+
+        public EnvelopeMessageHandler()
+        {
+            log.Debug("EnvelopeMessageHandler::ctor");
+        }
 
         public Task Handle(IEnvelopeMessage message, IMessageHandlerContext context)
         {

@@ -160,18 +160,18 @@ namespace Hermes.EndpointWorker.Service
         {
             log.Debug("Begin UpdateEndpointRegistration");
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).ToList();
+            var interfaceGenericArgumentNames = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).Select(a => a.GetInterface(IHandleMessagesType.Name).GenericTypeArguments[0].Name).ToList();
 
-            assemblies?.ForEach(a =>
+            interfaceGenericArgumentNames?.ForEach(interfaceGenericArgumentName =>
             {
-                log.Debug(a.FullName);
+                log.Debug(interfaceGenericArgumentName);
             });
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
                 EndpointName = EndpointName,
                 Environment = "*",
-                Message = String.Join(", ", assemblies),
+                Message = String.Join(", ", interfaceGenericArgumentNames),
                 Version = "1.0.0.0",
                 UtcTimestamp = DateTime.UtcNow
             };

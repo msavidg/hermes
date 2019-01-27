@@ -55,6 +55,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Common.Interfaces", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hermes.Management.Web", "Hermes.Management.Web\Hermes.Management.Web.csproj", "{07E04C09-8AB7-4DFF-B0BB-73C832F0CA6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Test.Web", "Hermes.Test.Web\Hermes.Test.Web.csproj", "{578E25FB-09E5-4C8F-A0D3-8D9636133793}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hermes.Messages", "Hermes.Messages\Hermes.Messages.csproj", "{CE10245D-30C8-4E88-9A7A-98E619C2D64A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +113,14 @@ Global
 		{07E04C09-8AB7-4DFF-B0BB-73C832F0CA6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E04C09-8AB7-4DFF-B0BB-73C832F0CA6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07E04C09-8AB7-4DFF-B0BB-73C832F0CA6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578E25FB-09E5-4C8F-A0D3-8D9636133793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578E25FB-09E5-4C8F-A0D3-8D9636133793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578E25FB-09E5-4C8F-A0D3-8D9636133793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578E25FB-09E5-4C8F-A0D3-8D9636133793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE10245D-30C8-4E88-9A7A-98E619C2D64A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE10245D-30C8-4E88-9A7A-98E619C2D64A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE10245D-30C8-4E88-9A7A-98E619C2D64A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE10245D-30C8-4E88-9A7A-98E619C2D64A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +145,7 @@ Global
 		{BE96E0D2-E426-4290-8800-41033B3E0C1B} = {6A2069F9-1F8C-4555-9F5E-91B048F6F85C}
 		{4C639154-E52B-43B8-98C7-87FB3CE747E2} = {BE96E0D2-E426-4290-8800-41033B3E0C1B}
 		{12C25C3F-0895-4D19-8CEE-844BF6ACC221} = {55E924B2-180B-49AA-A871-2FD2979987AF}
+		{CE10245D-30C8-4E88-9A7A-98E619C2D64A} = {F59C7890-5EFE-4B2A-BA4D-4007AC343C58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD8639CC-82FC-479A-915A-BDE93A675C4D}

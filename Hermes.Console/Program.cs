@@ -1,94 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mime;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using AdobeMessageInterface;
-using DocumentGenerationMessage.Adobe;
-using EnvelopeMessage;
-using EnvelopeMessage.Base;
 using Hermes.Common.Datatypes;
+using Hermes.Messages;
 using Newtonsoft.Json;
 using NServiceBus;
 using NServiceBus.Configuration.AdvancedExtensibility;
-using NServiceBus.Hosting.Helpers;
+using NServiceBus.Features;
 using NServiceBus.Logging;
-using NServiceBus.Persistence.Sql;
 
 namespace Hermes.Console
 {
     class Program
     {
-        static readonly ILog log = LogManager.GetLogger<Program>();
+        static readonly ILog log = LogManager.GetLogger("Console");
 
-        public static string EndpointName => "Hermes.EndpointWorker.Service";
+        public static string EndpointName => "Hermes.EndpointLoadBalancer.Service";
 
         private static IEndpointInstance _endpoint;
 
         static async Task Main(string[] args)
         {
-            var endpointConfiguration = new EndpointConfiguration("ConsoleApp");
-            endpointConfiguration.SendFailedMessagesTo("error");
-            endpointConfiguration.AuditProcessedMessagesTo("audit");
-            endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
-            var transportExtensions = endpointConfiguration.UseTransport<MsmqTransport>();
-            var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
-            var subscriptions = persistence.SubscriptionSettings();
-            subscriptions.CacheFor(TimeSpan.FromMinutes(1));
-            persistence.SqlDialect<SqlDialect.MsSqlServer>();
-            persistence.ConnectionBuilder(
-                connectionBuilder: () =>
-                {
-                    SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
-                    {
-                        DataSource = "localhost",
-                        InitialCatalog = "nServiceBus",
-                        IntegratedSecurity = true,
-                        MultipleActiveResultSets = true
-                    };
-                    return new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-                });
-            endpointConfiguration.EnableInstallers();
+            log.Debug("Begin Main");
 
-            _endpoint = await Endpoint.Start(endpointConfiguration).ConfigureAwait(true);
-
-            RegisterEndpoint();
-
-            IEnvelopeMessage envelopeMessage = new EnvelopeMessageBase()
+            try
             {
-                Environment = "DEV",
-                From = endpointConfiguration.GetSettings().EndpointName(),
-                To = "Hermes.EndpointLoadBalancer.Service",
-                Version = "1.0.0",
-                Message = typeof(DocumentGenerationMessageAdobe).Name
-            };
+                var endpointConfiguration = new EndpointConfiguration("Hermes.Test.Web");
 
-            await _endpoint.Send("Hermes.EndpointLoadBalancer.Service", envelopeMessage);
+                endpointConfiguration.UseTransport<MsmqTransport>();
+                endpointConfiguration.DisableFeature<MessageDrivenSubscriptions>();
+                endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
 
+                endpointConfiguration.SendOnly();
+
+                var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
+
+                IDocumentGenerationMessage documentGenerationMessageAdobe = new DocumentGenerationMessageAdobe()
+                {
+                    Environment = "DEV",
+                    From = endpointConfiguration.GetSettings().EndpointName(),
+                    To = "Hermes.EndpointLoadBalancer.Service",
+                    Version = "1.0.0",
+                    Message = typeof(DocumentGenerationMessageAdobe).Name,
+                    DocumentName = "Sample Document"
+                };
+
+                await endpointInstance.Send("Hermes.EndpointLoadBalancer.Service", documentGenerationMessageAdobe);
+
+                RegisterEndpoint();
+
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+            }
         }
 
         private static void RegisterEndpoint()
         {
             log.Debug("Begin RegisterEndpoint");
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).ToList();
+            var interfaceGenericArgumentNames = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).Select(a => a.GetInterface(IHandleMessagesType.Name).GenericTypeArguments[0].Name).ToList();
 
-            assemblies?.ForEach(a =>
+            interfaceGenericArgumentNames?.ForEach(interfaceGenericArgumentName =>
             {
-                log.Debug(a.FullName);
+                log.Debug(interfaceGenericArgumentName);
             });
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
                 EndpointName = EndpointName,
                 Environment = "*",
-                Message = String.Join(", ", assemblies),
-                Version = "1.0.0.0"
+                Message = String.Join(", ", interfaceGenericArgumentNames),
+                Version = "1.0.0.0",
+                UtcTimestamp = DateTime.UtcNow
             };
 
             try
