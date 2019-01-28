@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EnvelopeMessage;
-using EnvelopeMessage.Base;
 using NServiceBus;
+using EnvelopeMessage;
 
 namespace DocumentGenerationMessage.Adobe
 {
-    public class DocumentGenerationMessageAdobe : EnvelopeMessageBase, IDocumentGenerationMessage
+    public class DocumentGenerationMessageAdobe : EnvelopeMessage.EnvelopeMessage, IDocumentGenerationMessage
     {
         public string DocumentName { get; set; }
     }

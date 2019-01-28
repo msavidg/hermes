@@ -7,8 +7,8 @@
     <ProjectGuid>{2FA18FDB-39CB-4371-A658-2F6335DA4A51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EnvelopeMessage.Base</RootNamespace>
-    <AssemblyName>EnvelopeMessage.Base</AssemblyName>
+    <RootNamespace>EnvelopeMessage</RootNamespace>
+    <AssemblyName>EnvelopeMessage</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnvelopeMessageBase.cs" />
+    <Compile Include="EnvelopeMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

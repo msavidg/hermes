@@ -7,8 +7,8 @@
     <ProjectGuid>{7DD6D5A5-D078-4D03-B575-680FF721BAB6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EnvelopeMessage</RootNamespace>
-    <AssemblyName>EnvelopeMessage</AssemblyName>
+    <RootNamespace>EnvelopeMessageInterface</RootNamespace>
+    <AssemblyName>EnvelopeMessageInterface</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

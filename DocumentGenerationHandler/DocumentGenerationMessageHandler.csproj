@@ -58,9 +58,13 @@
     <Analyzer Include="..\packages\NServiceBus.7.1.6\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hermes.Messages\Hermes.Messages.csproj">
-      <Project>{ce10245d-30c8-4e88-9a7a-98e619c2d64a}</Project>
-      <Name>Hermes.Messages</Name>
+    <ProjectReference Include="..\AdobeMessageInterface\DocumentGenerationMessageInterface.csproj">
+      <Project>{873497dd-bb87-4e80-83ce-0a3f7e2da5e9}</Project>
+      <Name>DocumentGenerationMessageInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EnvelopeMessage\EnvelopeMessageInterface.csproj">
+      <Project>{7dd6d5a5-d078-4d03-b575-680ff721bab6}</Project>
+      <Name>EnvelopeMessageInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

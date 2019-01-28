@@ -1,20 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NServiceBus.Transport.Msmq.1.0.0\build\NServiceBus.Transport.Msmq.props" Condition="Exists('..\packages\NServiceBus.Transport.Msmq.1.0.0\build\NServiceBus.Transport.Msmq.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{151BA7A1-9B56-4C58-8963-9CAE1F19613F}</ProjectGuid>
+    <ProjectGuid>{55130FF2-25E6-47EC-B910-60C19AC07494}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EnvelopeHandler</RootNamespace>
-    <AssemblyName>EnvelopeHandler</AssemblyName>
+    <RootNamespace>NETSMessageInterface</RootNamespace>
+    <AssemblyName>NETSMessageInterface</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,23 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.7.1.6\lib\net452\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Newtonsoft.Json, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NServiceBus.Newtonsoft.Json.2.2.0\lib\net452\NServiceBus.Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Transport.Msmq, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NServiceBus.Transport.Msmq.1.0.0\lib\net452\NServiceBus.Transport.Msmq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Messaging" />
-    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -61,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnvelopeMessageHandler.cs" />
+    <Compile Include="INETSMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,28 +57,10 @@
     <Analyzer Include="..\packages\NServiceBus.7.1.6\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdobeMessageInterface\DocumentGenerationMessageInterface.csproj">
-      <Project>{873497dd-bb87-4e80-83ce-0a3f7e2da5e9}</Project>
-      <Name>DocumentGenerationMessageInterface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EnvelopeMessage\EnvelopeMessageInterface.csproj">
       <Project>{7dd6d5a5-d078-4d03-b575-680ff721bab6}</Project>
       <Name>EnvelopeMessageInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Hermes.Common.Datatypes\Hermes.Common.Datatypes.csproj">
-      <Project>{4c639154-e52b-43b8-98c7-87fb3ce747e2}</Project>
-      <Name>Hermes.Common.Datatypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj">
-      <Project>{12c25c3f-0895-4d19-8cee-844bf6acc221}</Project>
-      <Name>Hermes.Common.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NServiceBus.Transport.Msmq.1.0.0\build\NServiceBus.Transport.Msmq.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NServiceBus.Transport.Msmq.1.0.0\build\NServiceBus.Transport.Msmq.props'))" />
-  </Target>
 </Project>

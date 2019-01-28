@@ -2,17 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Net;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
-using System.Web.Http;
 using Hermes.Common.Interfaces;
 using Hermes.EndpointLoadBalancer.Service.Configuration;
 using Microsoft.Owin.Hosting;
 using NServiceBus;
 using NServiceBus.Logging;
 using NServiceBus.Persistence.Sql;
-using Owin;
 
 namespace Hermes.EndpointLoadBalancer.Service
 {

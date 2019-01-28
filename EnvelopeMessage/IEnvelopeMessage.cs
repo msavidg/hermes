@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
 
-namespace EnvelopeMessage
+namespace EnvelopeMessageInterface
 {
     public interface IEnvelopeMessage : ICommand
     {

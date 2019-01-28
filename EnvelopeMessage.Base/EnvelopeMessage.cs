@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EnvelopeMessageInterface;
 using NServiceBus;
 
-namespace EnvelopeMessage.Base
+namespace EnvelopeMessage
 {
-    public class EnvelopeMessageBase : IEnvelopeMessage
+    public class EnvelopeMessage : IEnvelopeMessage
     {
         public string From { get; set; }
         public string To { get; set; }

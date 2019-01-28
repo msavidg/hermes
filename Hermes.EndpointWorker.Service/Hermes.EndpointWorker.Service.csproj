@@ -29,6 +29,8 @@
     <ProjectReference Include="..\DocumentGenerationHandler\DocumentGenerationMessageHandler.csproj" />
     <ProjectReference Include="..\Hermes.Common.Datatypes\Hermes.Common.Datatypes.csproj" />
     <ProjectReference Include="..\Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj" />
+    <ProjectReference Include="..\ImageRightMessageHandler\ImageRightMessageHandler.csproj" />
+    <ProjectReference Include="..\NETSMessageHandler\NETSMessageHandler.csproj" />
   </ItemGroup>
 
 </Project>

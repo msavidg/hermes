@@ -1,4 +1,4 @@
-﻿using EnvelopeMessage;
+﻿using EnvelopeMessageInterface;
 
 namespace DocumentGenerationMessage
 {

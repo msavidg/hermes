@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using DocumentGenerationMessage;
+using DocumentGenerationMessage.Adobe;
 using Hermes.Common.Datatypes;
-using Hermes.Messages;
 using Newtonsoft.Json;
 using NServiceBus;
 using NServiceBus.Configuration.AdvancedExtensibility;
@@ -16,7 +17,7 @@ namespace Hermes.Console
     {
         static readonly ILog log = LogManager.GetLogger("Console");
 
-        public static string EndpointName => "Hermes.EndpointLoadBalancer.Service";
+        public static string EndpointName => "Hermes.Console";
 
         private static IEndpointInstance _endpoint;
 
@@ -26,7 +27,7 @@ namespace Hermes.Console
 
             try
             {
-                var endpointConfiguration = new EndpointConfiguration("Hermes.Test.Web");
+                var endpointConfiguration = new EndpointConfiguration("Hermes.Console");
 
                 endpointConfiguration.UseTransport<MsmqTransport>();
                 endpointConfiguration.DisableFeature<MessageDrivenSubscriptions>();
@@ -42,13 +43,13 @@ namespace Hermes.Console
                     From = endpointConfiguration.GetSettings().EndpointName(),
                     To = "Hermes.EndpointLoadBalancer.Service",
                     Version = "1.0.0",
-                    Message = typeof(DocumentGenerationMessageAdobe).Name,
+                    Message = typeof(IDocumentGenerationMessage).Name,
                     DocumentName = "Sample Document"
                 };
 
                 await endpointInstance.Send("Hermes.EndpointLoadBalancer.Service", documentGenerationMessageAdobe);
 
-                RegisterEndpoint();
+                //RegisterEndpoint();
 
             }
             catch (Exception ex)
@@ -70,7 +71,7 @@ namespace Hermes.Console
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
-                EndpointName = EndpointName,
+                EndpointName = $"{EndpointName}@{Environment.MachineName}",
                 Environment = "*",
                 Message = String.Join(", ", interfaceGenericArgumentNames),
                 Version = "1.0.0.0",

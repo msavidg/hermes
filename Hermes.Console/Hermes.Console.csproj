@@ -183,13 +183,21 @@
     <Analyzer Include="..\packages\NServiceBus.7.1.6\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DocumentGenerationHandler\DocumentGenerationMessageHandler.csproj">
-      <Project>{cd3b7ae3-adc4-4970-b311-d4389bb0e11b}</Project>
-      <Name>DocumentGenerationMessageHandler</Name>
+    <ProjectReference Include="..\AdobeMessageInterface\DocumentGenerationMessageInterface.csproj">
+      <Project>{873497dd-bb87-4e80-83ce-0a3f7e2da5e9}</Project>
+      <Name>DocumentGenerationMessageInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EnvelopeHandler\EnvelopeMessageHandler.csproj">
-      <Project>{151ba7a1-9b56-4c58-8963-9cae1f19613f}</Project>
-      <Name>EnvelopeMessageHandler</Name>
+    <ProjectReference Include="..\DocumentGenerationMessage.Adobe\DocumentGenerationMessage.Adobe.csproj">
+      <Project>{d616681f-dff6-4518-9421-1623a1aae2c8}</Project>
+      <Name>DocumentGenerationMessage.Adobe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EnvelopeMessage.Base\EnvelopeMessage.csproj">
+      <Project>{2fa18fdb-39cb-4371-a658-2f6335da4a51}</Project>
+      <Name>EnvelopeMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EnvelopeMessage\EnvelopeMessageInterface.csproj">
+      <Project>{7dd6d5a5-d078-4d03-b575-680ff721bab6}</Project>
+      <Name>EnvelopeMessageInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Hermes.Common.Datatypes\Hermes.Common.Datatypes.csproj">
       <Project>{4c639154-e52b-43b8-98c7-87fb3ce747e2}</Project>
@@ -198,10 +206,6 @@
     <ProjectReference Include="..\Hermes.Common.Interfaces\Hermes.Common.Interfaces.csproj">
       <Project>{12c25c3f-0895-4d19-8cee-844bf6acc221}</Project>
       <Name>Hermes.Common.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hermes.Messages\Hermes.Messages.csproj">
-      <Project>{ce10245d-30c8-4e88-9a7a-98e619c2d64a}</Project>
-      <Name>Hermes.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -133,7 +133,7 @@ namespace Hermes.EndpointWorker.Service
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
-                EndpointName = EndpointName,
+                EndpointName = $"{EndpointName}@{Environment.MachineName}",
                 Environment = "*",
                 Message = String.Join(", ", assemblies),
                 Version = "1.0.0.0",
@@ -169,7 +169,7 @@ namespace Hermes.EndpointWorker.Service
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
-                EndpointName = EndpointName,
+                EndpointName = $"{EndpointName}@{Environment.MachineName}",
                 Environment = "*",
                 Message = String.Join(", ", interfaceGenericArgumentNames),
                 Version = "1.0.0.0",
@@ -205,7 +205,7 @@ namespace Hermes.EndpointWorker.Service
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
-                EndpointName = EndpointName,
+                EndpointName = $"{EndpointName}@{Environment.MachineName}",
                 Environment = "*",
                 Message = String.Join(", ", assemblies),
                 Version = "1.0.0.0"
