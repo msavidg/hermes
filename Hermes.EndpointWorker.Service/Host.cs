@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Timers;
 using Hermes.Common.Datatypes;
 using Newtonsoft.Json;
 using NServiceBus;
@@ -64,7 +65,7 @@ namespace Hermes.EndpointWorker.Service
 
                 // Set up a timer to trigger every minute.  
                 System.Timers.Timer timer = new System.Timers.Timer { Interval = 5000 };
-                timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+                timer.Elapsed += new ElapsedEventHandler(this.OnTimer);
                 timer.Start();
 
             }
@@ -78,7 +79,7 @@ namespace Hermes.EndpointWorker.Service
         {
             try
             {
-                // TODO: perform any futher shutdown operations before or after stopping the endpoint
+                // TODO: perform any further shutdown operations before or after stopping the endpoint
                 UnRegisterEndpoint();
 
                 await _endpoint?.Stop();
@@ -124,20 +125,21 @@ namespace Hermes.EndpointWorker.Service
         {
             log.Debug("Begin RegisterEndpoint");
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).ToList();
+            var interfaceGenericArgumentNames = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(t => t.Namespace != null && (!t.Namespace.StartsWith("NServiceBus") && IsMessageHandler(t))).ToList();
 
-            assemblies?.ForEach(a =>
+            interfaceGenericArgumentNames?.ForEach(interfaceGenericArgumentName =>
             {
-                log.Debug(a.FullName);
+                log.Debug(interfaceGenericArgumentName.FullName);
             });
 
             EndpointRegistration endpointRegistration = new EndpointRegistration()
             {
                 EndpointName = $"{EndpointName}@{Environment.MachineName}",
                 Environment = "*",
-                Message = String.Join(", ", assemblies),
+                Message = String.Join(", ", interfaceGenericArgumentNames),
                 Version = "1.0.0.0",
-                UtcTimestamp = DateTime.UtcNow
+                UtcTimestamp = DateTime.UtcNow, 
+                RefreshIntervalInSeconds = 5
             };
 
             try

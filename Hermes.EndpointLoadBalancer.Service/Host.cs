@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
 using Hermes.Common.Interfaces;
@@ -143,6 +144,15 @@ namespace Hermes.EndpointLoadBalancer.Service
         {
 
             log.Debug("Begin OnTimer");
+
+            if (Cache[CacheKey] is List<IEndpointRegistration> endpointRegistrations)
+            {
+                log.Debug($"Registrations count before cleanup: [{endpointRegistrations.Count}]");
+
+                endpointRegistrations.RemoveAll(er => DateTime.UtcNow.Subtract(er.UtcTimestamp).Seconds > er.RefreshIntervalInSeconds + 1);
+
+                log.Debug($"Registrations count after cleanup: [{endpointRegistrations.Count}]");
+            }
 
             log.Debug("End OnTimer");
 

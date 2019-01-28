@@ -26,4 +26,5 @@ interface Endpoint {
   environment: string;
   version: string;
   utcTimestamp: string;
+  refreshIntervalInSeconds: string;
 }

@@ -75,7 +75,8 @@ namespace Hermes.Console
                 Environment = "*",
                 Message = String.Join(", ", interfaceGenericArgumentNames),
                 Version = "1.0.0.0",
-                UtcTimestamp = DateTime.UtcNow
+                UtcTimestamp = DateTime.UtcNow,
+                RefreshIntervalInSeconds = 5
             };
 
             try

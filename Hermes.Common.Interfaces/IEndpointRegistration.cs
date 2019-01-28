@@ -9,6 +9,7 @@ namespace Hermes.Common.Interfaces
         string Environment { get; set; }
         string Version { get; set; }
         DateTime UtcTimestamp { get; set; }
+        int RefreshIntervalInSeconds { get; set; }
 
         string ToString();
     }
