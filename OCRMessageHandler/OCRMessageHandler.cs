@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NavigatorsOCR.Processing;
 using NServiceBus;
 using OCRMessageInterface;
 
@@ -12,7 +13,11 @@ namespace OCRMessageHandler
     {
         public Task Handle(IOCRMessage message, IMessageHandlerContext context)
         {
-            throw new NotImplementedException();
+
+            Processing.ProcessDocument(message.DocumentId);
+
+            return Task.CompletedTask;
+
         }
     }
 }

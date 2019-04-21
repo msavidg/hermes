@@ -9,5 +9,7 @@ namespace OCRMessage.Navigators
 {
     public class OCRMessageNavigators : EnvelopeMessage.EnvelopeMessage, IOCRMessage
     {
+        public int DocumentId { get; set; }
+
     }
 }

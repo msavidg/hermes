@@ -9,5 +9,6 @@ namespace OCRMessageInterface
 {
     public interface IOCRMessage : IEnvelopeMessage
     {
+        int DocumentId { get; set; }
     }
 }
