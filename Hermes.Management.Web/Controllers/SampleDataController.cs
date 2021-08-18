@@ -17,7 +17,7 @@ namespace Hermes.Management.Web.Controllers
         [HttpGet("[action]")]
         public IEnumerable<EndpointRegistration> Endpoints()
         {
-            List<EndpointRegistration> endpoints = new List<EndpointRegistration>();
+            List<EndpointRegistration> endpoints;
 
             using (WebClient webClient = new WebClient())
             {

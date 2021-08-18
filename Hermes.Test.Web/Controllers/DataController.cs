@@ -41,7 +41,7 @@ namespace Hermes.Test.Web.Controllers
                     From = endpointConfiguration.GetSettings().EndpointName(),
                     To = "Hermes.EndpointLoadBalancer.Service",
                     Version = "1.0.0",
-                    Message = typeof(IDocumentGenerationMessage).Name,
+                    Message = nameof(IDocumentGenerationMessage),
                     DocumentName = "Sample Document"
                 };
 

@@ -1,8 +1,9 @@
+using NLog.Extensions.Logging;
+using NServiceBus.Extensions.Logging;
 using System;
 using System.Linq;
 using System.ServiceProcess;
 using System.Threading.Tasks;
-using NServiceBus;
 
 namespace Hermes.EndpointWorker.Service
 {
@@ -11,7 +12,9 @@ namespace Hermes.EndpointWorker.Service
 
         public async static Task Main(string[] args)
         {
-            NServiceBus.Logging.LogManager.Use<NLogFactory>();
+            Microsoft.Extensions.Logging.ILoggerFactory extensionsLoggerFactory = new NLogLoggerFactory();
+            NServiceBus.Logging.ILoggerFactory nservicebusLoggerFactory = new ExtensionsLoggerFactory(loggerFactory: extensionsLoggerFactory);
+            NServiceBus.Logging.LogManager.UseFactory(loggerFactory: nservicebusLoggerFactory);
 
             var host = new Host();
 

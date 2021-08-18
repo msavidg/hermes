@@ -1,11 +1,12 @@
+using Hermes.Common.Interfaces;
+using NLog.Extensions.Logging;
+using NServiceBus.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.ServiceProcess;
 using System.Threading.Tasks;
-using Hermes.Common.Interfaces;
-using NServiceBus;
 
 namespace Hermes.EndpointLoadBalancer.Service
 {
@@ -16,7 +17,10 @@ namespace Hermes.EndpointLoadBalancer.Service
 
         public async static Task Main(string[] args)
         {
-            NServiceBus.Logging.LogManager.Use<NLogFactory>();
+
+            Microsoft.Extensions.Logging.ILoggerFactory extensionsLoggerFactory = new NLogLoggerFactory();
+            NServiceBus.Logging.ILoggerFactory nservicebusLoggerFactory = new ExtensionsLoggerFactory(loggerFactory: extensionsLoggerFactory);
+            NServiceBus.Logging.LogManager.UseFactory(loggerFactory: nservicebusLoggerFactory);
 
             Cache[CacheKey] = new List<IEndpointRegistration>();
 
